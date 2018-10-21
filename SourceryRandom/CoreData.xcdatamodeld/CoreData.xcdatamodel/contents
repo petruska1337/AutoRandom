@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDDog" representedClassName="CDDog" syncable="YES" codeGenerationType="class">
+        <attribute name="age" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="birthday" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="firstname" attributeType="String" syncable="YES"/>
+        <attribute name="secondname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="toysCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="toy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDToy" syncable="YES"/>
+        <relationship name="toys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDToy" inverseName="dog" inverseEntity="CDToy" syncable="YES"/>
+    </entity>
+    <entity name="CDToy" representedClassName="CDToy" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDog" inverseName="toys" inverseEntity="CDDog" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CDDog" positionX="-16821.5234375" positionY="-5696.75" width="128" height="150"/>
+        <element name="CDToy" positionX="-16508.87890625" positionY="-5747.42578125" width="128" height="75"/>
+    </elements>
+</model>

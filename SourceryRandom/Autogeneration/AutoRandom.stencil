@@ -1,0 +1,18 @@
+
+import Foundation
+
+{% for type in types.implementing.AutoRandom|struct where type.accessLevel == "public" %}
+extension {{ type.name }} {
+    public static func autoRandom({% for argument in type.variables where not argument.isComputed %}{{argument.name}}: {{argument.typeName}}{% if argument.type.implements.Random or argument.type.implements.AutoRandom %} = {{argument.typeName}}.random(){% elif argument.isArray %} = {{argument.typeName}}.random(){% elif argument.isDictionary %} = [:]{% elif argument.type.kind == "enum" %} = {{argument.type.name}}.allCases.randomElement(){% if not argument.isOptional %}!{% endif %}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) -> {{type.name}} {
+        return {{type.name}}.new({% for argument in type.variables where not argument.isComputed %}{{argument.name}}: {{argument.name}}{% if not forloop.last %}, {% endif %}{% endfor %})
+    }
+}
+{% endfor %}
+
+{% for type in types.implementing.AutoRandom|struct where type.accessLevel == "public" %}
+extension {{ type.name }}: Random {
+    public static func random() -> {{ type.name }} {
+        return autoRandom()
+    }
+}
+{% endfor %}
